@@ -25,19 +25,18 @@ def count_words(string):
     count = len(words)
     return count
 
-def count_character(string, order=1):
+def count_character(string, order='alpha'):
     lowercase_string = string.lower()
     characters = {}
-    reverse_sort = order == 1
+    reverse_sort = order == 'num'
+    sort_key = 1 if order == 'num' else 0
     for c in lowercase_string:
         if c.isalpha():
             characters[c] = characters.get(c, 0) + 1
-    #sorted_characters = dict(sorted(characters.items()))
-    sorted_characters = dict(sorted(characters.items(), key=lambda item: item[order], reverse=reverse_sort))
+    sorted_characters = dict(sorted(characters.items(), key=lambda item: item[sort_key], reverse=reverse_sort))
     return (sorted_characters)
 
 if __name__ == "__main__":
-        # Setup the argument parser
     parser = argparse.ArgumentParser(description='Sort character frequency.')
-    parser.add_argument('order', type=int, choices=[0, 1], help='0 for alphabetical, 1 for frequency')
+    parser.add_argument('-o', '--order', type=str, choices=['alpha', 'num'], default='alpha', help='alpha for alphabetical (default), num for frequency')
     main()
