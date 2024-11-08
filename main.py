@@ -2,12 +2,12 @@ import argparse
 
 def main():
     args = parser.parse_args()
-    book_path = "books/frankenstein.txt"
-    text = get_book_text(book_path)
+    #file_path = "books/frankenstein.txt"
+    text = get_book_text(args.file_path)
     word_count = count_words(text)
     character_count = count_character(text, args.order)
     print(text)
-    print(f"--- Begining report for {book_path} ---")
+    print(f"--- Begining report for {args.file_path} ---")
     print(f"{word_count} Words found in this book")
     print(f"List of how often each character appears")
     for c in character_count:
@@ -38,5 +38,6 @@ def count_character(string, order='alpha'):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Sort character frequency.')
+    parser.add_argument('file_path', type=str, help='Path to the text file')
     parser.add_argument('-o', '--order', type=str, choices=['alpha', 'num'], default='alpha', help='alpha for alphabetical (default), num for frequency')
     main()
